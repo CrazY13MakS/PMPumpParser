@@ -28,19 +28,19 @@ namespace PMPumpParser
         [Benchmark]
         public void Dictionary()
         {
-            _parser.ParseWithDictionary();
+            _parser.ParseUsingDictionary();
         }
 
         [Benchmark]
         public void Hashset()
         {
-            _parser.ParseWithHashset();
+            _parser.ParseUsingHashset();
         }
 
         [Benchmark]
         public void SpanAndHashset()
         {
-            _parser.ParseWithSpanAndHashset();
+            _parser.ParseUsingSpanAndHashset();
         }
 
         [Benchmark]

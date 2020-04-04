@@ -21,7 +21,7 @@ namespace PMPumpParser
             _collectionCapacity = _incomeText.Length / 64;
         }
 
-        public String ParseWithSpanAndHashset()
+        public String ParseUsingSpanAndHashset()
         {
             ReadOnlySpan<char> span = _incomeText.AsSpan();
             HashSet<CustomTuple> hashSet = new HashSet<CustomTuple>(_collectionCapacity, new CustomTupleEqualityComparer());
@@ -52,7 +52,7 @@ namespace PMPumpParser
             return stringBuilder.ToString();
         }
 
-        public String ParseWithHashset()
+        public String ParseUsingHashset()
         {
             HashSet<CustomTuple> hashSet = new HashSet<CustomTuple>(_collectionCapacity, new CustomTupleEqualityComparer());
             for (int i = 0; i < _incomeText.Length; i++)
@@ -82,7 +82,7 @@ namespace PMPumpParser
             return stringBuilder.ToString();
         }
 
-        public String ParseWithDictionary()
+        public String ParseUsingDictionary()
         {
             Dictionary<char, CustomTuple> dictionary = new Dictionary<char, CustomTuple>(_collectionCapacity);
             for (int i = 0; i < _incomeText.Length; i++)
