@@ -8,7 +8,7 @@ namespace PMPumpParser
 {
     class CustomTextParser
     {
-        private readonly String _incomeText;
+        private readonly String _rawText;
         /// <summary>
         ///  Upper bound of occurrences of symbol
         /// </summary>
@@ -17,13 +17,13 @@ namespace PMPumpParser
         private readonly int _collectionCapacity;
         public CustomTextParser([DisallowNull]String text)
         {
-            _incomeText = text;
-            _collectionCapacity = _incomeText.Length / 64;
+            _rawText = text;
+            _collectionCapacity = _rawText.Length / 64;
         }
 
         public String ParseUsingSpanAndHashset()
         {
-            ReadOnlySpan<char> span = _incomeText.AsSpan();
+            ReadOnlySpan<char> span = _rawText.AsSpan();
             HashSet<CustomTuple> hashSet = new HashSet<CustomTuple>(_collectionCapacity, new CustomTupleEqualityComparer());
             for (int i = 0; i < span.Length; i++)
             {
@@ -55,9 +55,9 @@ namespace PMPumpParser
         public String ParseUsingHashset()
         {
             HashSet<CustomTuple> hashSet = new HashSet<CustomTuple>(_collectionCapacity, new CustomTupleEqualityComparer());
-            for (int i = 0; i < _incomeText.Length; i++)
+            for (int i = 0; i < _rawText.Length; i++)
             {
-                var tuple = new CustomTuple() { Char = _incomeText[i], Count = 1 };
+                var tuple = new CustomTuple() { Char = _rawText[i], Count = 1 };
                 if (hashSet.TryGetValue(tuple, out CustomTuple value))
                 {
                     value.Count++;
@@ -77,7 +77,7 @@ namespace PMPumpParser
             for (int i = 0; i < indexesList.Count; i++)
             {
 
-                stringBuilder.Append(_incomeText[indexesList[i]]);
+                stringBuilder.Append(_rawText[indexesList[i]]);
             }
             return stringBuilder.ToString();
         }
@@ -85,9 +85,9 @@ namespace PMPumpParser
         public String ParseUsingDictionary()
         {
             Dictionary<char, CustomTuple> dictionary = new Dictionary<char, CustomTuple>(_collectionCapacity);
-            for (int i = 0; i < _incomeText.Length; i++)
+            for (int i = 0; i < _rawText.Length; i++)
             {
-                var currentChar = _incomeText[i];
+                var currentChar = _rawText[i];
                 if (dictionary.TryGetValue(currentChar, out CustomTuple value))
                 {
                     value.Count++;
@@ -107,14 +107,14 @@ namespace PMPumpParser
             for (int i = 0; i < indexesList.Count; i++)
             {
 
-                stringBuilder.Append(_incomeText[indexesList[i]]);
+                stringBuilder.Append(_rawText[indexesList[i]]);
             }
             return stringBuilder.ToString();
         }
 
         public String ParseUsingDictionaryAndSpan()
         {
-            ReadOnlySpan<char> span = _incomeText.AsSpan();
+            ReadOnlySpan<char> span = _rawText.AsSpan();
             Dictionary<char, CustomTuple> dictionary = new Dictionary<char, CustomTuple>(_collectionCapacity);
             for (int i = 0; i < span.Length; i++)
             {
